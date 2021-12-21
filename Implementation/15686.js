@@ -1,10 +1,4 @@
-// let input = require('fs').readFileSync('/dev/stdin', 'utf8').trim().split('\n');
-let input = `5 1
-1 2 0 2 1
-1 2 0 2 1
-1 2 0 2 1
-1 2 0 2 1
-1 2 0 2 1`.split('\n');
+let input = require('fs').readFileSync('/dev/stdin', 'utf8').trim().split('\n');
 
 const [N, M] = input.shift().split(' ').map(Number);
 const city = input.map(x => x.split(' ').map(Number));
