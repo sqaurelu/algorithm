@@ -47,7 +47,7 @@ function partition(arr, left, right) {
   }
 
   // pivot 값이랑 pivot 보다 큰 값들 중 첫번째 값과 자리 변경
-  idx += 1; // pivot 보다 큰 값들 중 첫번째 값 위치
+  idx += 1; // pivot 보다 큰 값들 중 첫번쨰 값  위치
   swap(arr, right, idx);
 
   return idx;

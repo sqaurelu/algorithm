@@ -22,7 +22,7 @@
 * - A[i]의 왼쪽 자식 = A[2 * i]
 * - A[i]의 오른쪽 자식 = A[(2 * i) + 1]
 *
-* 아래 조건을 만족할 때 힙을 만들기 위한 연산 = MAX, MIN HEAPIFY
+* 아래 조건을 만족할 때 힙을 만들기 위한 연산 가능 = MAX, MIN HEAPIFY
 * - 트리의 전체 모양은 complete binary tree
 * - 왼쪽, 오른쪽 subtree는 그 자체로 heap
 * - 유일하게 루트만 heap property를 만족 안함.
@@ -37,7 +37,7 @@
 *
 * -> heap sort 과정 (주어진 배열 데이터를 complete binary tree라 봄)
 *   1. complete binary tree를 heap으로 바꾼다.(정렬할 배열을 힙으로 만들기) -> heapify 연산
-*     - 리프 노드가 아닌 노드 중 첫번째 노드부터 시작
+*     - 리프 노드가 아닌 노드 중 첫번째첫 노드부터 시작
 *     - 시간 복잡도: O(n) => 러프하게 계산하면 O(nlogn)
 *   2. 힙에서 최대값(루트)을 가장 마지막 값과 바꾼다.
 *   3. 힙의 크기가 1 줄어든 것으로 간주한다.
@@ -53,36 +53,36 @@ const A = [4, 1, 3, 2, 16, 9, 10, 14, 8, 7];
 // max heapify하면 [16, 14, 10, 8, 7, 9, 3, 2, 4, 1]
 
 // 배열을 heap으로 바꾸기
-function maxHeapify(arr, i, heapSize) {
+const maxHeapify = (arr, curNode, heapSize) => {
   const swap = (arr, i, j) => {
     [arr[i], arr[j]] = [arr[j], arr[i]];
   };
 
-  // i번째 노드의 자식이 없는 경우 리턴
-  if (i * 2 > heapSize) return ;
-  const leftIdx = i * 2;
-  const rightIdx = (i * 2) + 1;
+  // rootNode의 자식이 없는 경우 리턴
+  if (curNode * 2 > heapSize) return;
+  const leftChildren = curNode * 2;
+  const rightChildren = (curNode * 2) + 1;
 
-  let maxIdx = -1;
-  if (heapSize < rightIdx || arr[leftIdx - 1] > arr[rightIdx - 1]) maxIdx = leftIdx;
-  else maxIdx = rightIdx;
+  let maxNode = -1;
+  if (heapSize < rightChildren || arr[leftChildren - 1] > arr[rightChildren - 1]) maxNode = leftChildren;
+  else maxNode = rightChildren;
 
-  if (arr[i - 1] >= arr[maxIdx - 1]) return ;
-  swap(arr, i - 1, maxIdx - 1);
-  maxHeapify(arr, maxIdx, heapSize);
+  if (arr[curNode - 1] >= arr[maxNode - 1]) return;
+  swap(arr, curNode - 1, maxNode - 1);
+  maxHeapify(arr, maxNode, heapSize);
 }
 
-function maxHeap(arr) {
+const maxHeap = (arr) => {
   const heapSize = arr.length;
 
-  for (let i = Math.floor(heapSize / 2); i > 0; i--) {
+  for (let i = Math.floor(heapSize / 2); i > 0; i--) { // 리프 노드를 가진 맨 마지막 노드부터 루트 노드까지 heapify
     // do max heapify(A, i)
     maxHeapify(arr, i, heapSize);
   }
   return arr;
 }
 
-function heapSort(arr) { // O(nlogn)
+const heapSort = (arr) => { // O(nlogn)
   // build max heap
   maxHeap(arr); // O(n)
 
